@@ -1,0 +1,75 @@
+/* Efeitos de entrada e interação. Sem bibliotecas: só CSS + effects.js */
+
+/* Entrada ao rolar (classes aplicadas pelo JS) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+
+/* Hero */
+.hero{background:radial-gradient(60% 90% at 88% 15%,#dff0f8 0,transparent 60%),radial-gradient(50% 70% at 8% 95%,#e3f3ea 0,transparent 60%),#fff}
+.pipe{animation:pop .9s .25s cubic-bezier(.2,.7,.2,1) both,flutuar 6s 1.2s ease-in-out infinite}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(16px)}}
+@keyframes flutuar{50%{transform:translateY(-10px)}}
+
+/* Cabeçalho: encolhe e ganha sombra ao rolar */
+header{transition:box-shadow .3s}
+.nav,.lg{transition:height .3s}
+header.scrolled{box-shadow:0 6px 24px -14px rgba(31,78,99,.35)}
+header.scrolled .nav{height:62px}
+header.scrolled .lg{height:46px}
+
+/* Barra de progresso de leitura */
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:20;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,#2a5aa0,#2f7d5b,#6aa87f);pointer-events:none}
+
+/* Link ativo do menu (scrollspy) */
+nav a{position:relative;padding:4px 0}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:#2f7d5b;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+nav a:hover::after,nav a.active::after{transform:scaleX(1)}
+nav a.active{color:#2f7d5b}
+
+/* Títulos com linha que se desenha */
+section h2::after{content:"";display:block;width:56px;height:4px;border-radius:4px;margin-top:12px;background:linear-gradient(90deg,#2f7d5b,#0a8ccf);transform:scaleX(0);transform-origin:left;transition:transform .8s .25s cubic-bezier(.2,.7,.2,1)}
+section h2.in::after{transform:scaleX(1)}
+.band h2::after{margin-inline:auto;background:#fff}
+
+/* Botões */
+.btn{transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px -10px rgba(47,125,91,.7)}
+.btn:active{transform:none;box-shadow:none}
+
+/* Cartões de categoria */
+.cat{transition:transform .28s,box-shadow .28s,border-color .28s}
+.cat:hover{transform:translateY(-6px);box-shadow:0 18px 32px -16px rgba(31,78,99,.35)}
+.cat svg{transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.cat:hover svg{transform:scale(1.14) rotate(-5deg)}
+.cat span::after{content:"\2192";display:inline-block;margin-left:.4em;transition:transform .25s}
+.cat:hover span::after{transform:translateX(5px)}
+
+/* Diferenciais e regiões */
+.dif div{transition:border-color .3s,transform .3s}
+.dif div:hover{border-color:#2a5aa0;transform:translateX(4px)}
+.zones div{transition:background .3s}
+.zones div:hover{background:#f1f8f5}
+
+/* Marcas: cinza que ganha cor ao passar o mouse */
+.set li img{filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s,transform .3s}
+.set li:hover img{filter:none;opacity:1;transform:scale(1.06)}
+
+/* Faixa de contato com degradê em movimento */
+.band{background:linear-gradient(120deg,#2f7d5b,#2a7f93,#2f7d5b);background-size:220% 100%;animation:deslizar 14s ease-in-out infinite}
+@keyframes deslizar{50%{background-position:100% 0}}
+
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .pipe,.band{animation:none}
+  .progress{display:none}
+  .btn,.cat,.cat svg,.dif div{transition:none}
+}
+
+/* Ícones das categorias: traço fino em um quadrado suave */
+.cat{--c:#2f7d5b;--bg:#e8f3ee}
+.cat:nth-child(2){--c:#2a5a8c;--bg:#e6eef8}
+.cat:nth-child(3){--c:#2a7f93;--bg:#e2f2f5}
+.cat .ico{width:56px;height:56px;border-radius:16px;background:var(--bg);color:var(--c);display:grid;place-items:center;transition:background .3s,color .3s}
+.cat .ico svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.cat:hover .ico{background:var(--c);color:#fff}
+.cat:hover .ico svg{transform:scale(1.08)}
